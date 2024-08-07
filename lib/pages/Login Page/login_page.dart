@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_miner/controller/firestore_controller.dart';
 import 'package:firebase_miner/controller/user_controller.dart';
+import 'package:firebase_miner/modals/uaser_modals.dart';
 import 'package:firebase_miner/routes.dart';
 import 'package:firebase_miner/services/auth_services.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserController mutable = Provider.of<UserController>(context);
+    UserController immutable = Provider.of<UserController>(context);
+    FirestoreController fireStore = Provider.of<FirestoreController>(context);
     TextEditingController emailController = TextEditingController();
     TextEditingController pswController = TextEditingController();
     String defaultFontFamily = 'Roboto-Light.ttf';
@@ -124,9 +127,32 @@ class LoginPage extends StatelessWidget {
                             shape: BoxShape.circle, color: Color(0xFFF2F3F7)),
                         child: ElevatedButton(
                           onPressed: () async {
-                            mutable.singUnWithEmailAndPassword(
-                                email: emailController.text,
-                                password: pswController.text);
+                            User? user =
+                                await immutable.singInWithEmailAndPassword(
+                                    email: emailController.text,
+                                    password: pswController.text);
+
+                            if (user != null) {
+                              fireStore.addUser(user: user);
+                              fireStore.getData();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("SIGN UP !!"),
+                                  backgroundColor: Colors.green,
+                                  behavior: SnackBarBehavior.floating,
+                                ),
+                              );
+
+                              Navigator.pushNamed(context, Routes.routes.home);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("FAILLED !!"),
+                                  backgroundColor: Colors.red,
+                                  behavior: SnackBarBehavior.floating,
+                                ),
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFBC1F26),

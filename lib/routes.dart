@@ -1,3 +1,4 @@
+import 'package:firebase_miner/pages/ChatPage/chat_page.dart';
 import 'package:firebase_miner/pages/HomePage/home_page.dart';
 import 'package:firebase_miner/pages/Login%20Page/login_page.dart';
 import 'package:firebase_miner/pages/SignupPage/signup_page.dart';
@@ -12,11 +13,12 @@ class Routes {
   String login = 'login_page';
   String signup = 'signup_page';
   String home = 'home_page';
-
+  String add = 'add';
   Map<String, WidgetBuilder> get allRoutes => {
         '/': (context) => const SplashScreen(),
         'login_page': (context) => const LoginPage(),
         'signup_page': (context) => SignupPage(),
         'home_page': (context) => const HomePage(),
+        'add': (context) => ChatPage(),
       };
 }
