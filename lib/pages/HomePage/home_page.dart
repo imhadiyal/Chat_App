@@ -48,13 +48,14 @@ class HomePage extends StatelessWidget {
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
                 foregroundImage: NetworkImage(
-                  FireStoreService.instance.currentUser!.photoURL ?? "",
+                  FireStoreService.instance.currentUser?.photoURL ??
+                      "https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg",
                 ),
               ),
               accountName: Text(
-                  FireStoreService.instance.currentUser!.displayName ?? ""),
+                  FireStoreService.instance.currentUser?.displayName ?? ""),
               accountEmail:
-                  Text(FireStoreService.instance.currentUser!.email ?? ''),
+                  Text(FireStoreService.instance.currentUser?.email ?? ''),
             ),
             ListTile(
               leading: const Icon(Icons.people),

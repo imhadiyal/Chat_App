@@ -2,6 +2,7 @@ import 'package:firebase_miner/modals/chat_modals.dart';
 import 'package:firebase_miner/modals/uaser_modals.dart';
 import 'package:firebase_miner/services/firestore_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ChatPage extends StatelessWidget {
   ChatPage({super.key});
@@ -12,6 +13,9 @@ class ChatPage extends StatelessWidget {
     UserModel userModel =
         ModalRoute.of(context)!.settings.arguments as UserModel;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(userModel.displayName),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -59,8 +63,11 @@ class ChatPage extends StatelessWidget {
                                       onChanged: (val) {
                                         chat.msg = val;
                                       },
-                                      decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
+                                      decoration: const InputDecoration(
+                                        hintText: "Enter message",
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
                                       ),
                                     ),
                                     actions: [
@@ -90,33 +97,7 @@ class ChatPage extends StatelessWidget {
                                   ),
                                 );
                               },
-                              child: ConstrainedBox(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      MediaQuery.sizeOf(context).width * 0.7,
-                                ),
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  margin: const EdgeInsets.only(
-                                    bottom: 5,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Text(
-                                    chat.msg,
-                                    style: TextStyle(
-                                      color: chat.type == 'sent'
-                                          ? chat.status == 'seen'
-                                              ? Colors.blue
-                                              : null
-                                          : null,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              child:message;
                             ),
                           ],
                         );
