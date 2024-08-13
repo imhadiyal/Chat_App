@@ -57,16 +57,20 @@ class HomePage extends StatelessWidget {
               accountEmail:
                   Text(FireStoreService.instance.currentUser?.email ?? ''),
             ),
+            const Divider(),
             ListTile(
-              leading: const Icon(Icons.people),
-              title: const Text("My friends"),
-              trailing: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('friends');
-                },
-                icon: const Icon(Icons.arrow_forward_ios),
-              ),
+              onTap: () {},
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
             ),
+            const Divider(),
+            ListTile(
+              onTap: () {},
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+            ),
+            const Divider(),
+            ListTile(),
           ],
         ),
       ),

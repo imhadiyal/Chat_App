@@ -87,7 +87,7 @@ class FireStoreService {
   Stream<QuerySnapshot<Map<String, dynamic>>> getFriendsStream() {
     return fireStore
         .collection(userCollection)
-        .doc(currentUser!.uid)
+        .doc(currentUser?.uid)
         .collection('friends')
         .snapshots();
   }

@@ -14,8 +14,19 @@ class ChatPage extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as UserModel;
     return Scaffold(
       appBar: AppBar(
-        title: Text(userModel.displayName),
+        title: Row(
+          children: [
+            CircleAvatar(
+              foregroundImage: NetworkImage(userModel.photoURL),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(userModel.displayName),
+          ],
+        ),
       ),
+      backgroundColor: Colors.blueGrey.shade100,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -97,7 +108,100 @@ class ChatPage extends StatelessWidget {
                                   ),
                                 );
                               },
-                              child:message;
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth:
+                                      MediaQuery.sizeOf(context).width * 0.7,
+                                ),
+                                child: chat.type == 'sent'
+                                    ? Container(
+                                        padding: const EdgeInsets.all(10),
+                                        margin: const EdgeInsets.only(
+                                          bottom: 5,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(),
+                                          borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              topRight: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10)),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              chat.msg,
+                                              style: const TextStyle(
+                                                fontSize: 21,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Text(
+                                              ' ${chat.time.hour}:${chat.time.minute}',
+                                              style: const TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            Image(
+                                              image: chat.status == 'seen'
+                                                  ? const AssetImage(
+                                                      'assets/images/seen.png',
+                                                    )
+                                                  : const AssetImage(
+                                                      'assets/images/unseen.png'),
+                                              fit: BoxFit.fill,
+                                              height: 30,
+                                              width: 30,
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    : Container(
+                                        padding: const EdgeInsets.all(10),
+                                        margin: const EdgeInsets.only(
+                                          bottom: 5,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(),
+                                          borderRadius: const BorderRadius.only(
+                                              bottomRight: Radius.circular(10),
+                                              topRight: Radius.circular(10),
+                                              bottomLeft: Radius.circular(10)),
+                                        ),
+                                        child: Stack(
+                                          children: [
+                                            Text(
+                                              chat.msg,
+                                              style: const TextStyle(
+                                                fontSize: 21,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 100,
+                                              height: 30,
+                                            ),
+                                            Positioned(
+                                              height: 50,
+                                              right: 9,
+                                              top: 18,
+                                              child: Text(
+                                                ' ${chat.time.hour}:${chat.time.minute}',
+                                                style: const TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                              ),
                             ),
                           ],
                         );
@@ -112,6 +216,12 @@ class ChatPage extends StatelessWidget {
               ),
             ),
             TextField(
+              decoration: const InputDecoration(
+                hintText: "Enter message",
+                hintStyle: TextStyle(color: Colors.white),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+              ),
               controller: controller,
               onSubmitted: (val) {
                 FireStoreService.instance
