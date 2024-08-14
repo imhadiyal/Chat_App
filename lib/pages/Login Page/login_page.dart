@@ -21,9 +21,7 @@ class LoginPage extends StatelessWidget {
     double defaultIconSize = 17;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('loginPage'),
-      ),
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding:
             const EdgeInsets.only(left: 20, right: 20, top: 35, bottom: 30),
@@ -31,7 +29,19 @@ class LoginPage extends StatelessWidget {
         height: double.infinity,
         color: Colors.white70,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: 20,
+            ),
+            Text("Welcome Back!",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                )),
+            Text(
+              "Enter Your Username & Password",
+            ),
             Flexible(
               flex: 5,
               child: Column(
@@ -173,18 +183,6 @@ class LoginPage extends StatelessWidget {
                             textAlign: TextAlign.center,
                           ),
                         ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text("Anonymous"),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                        ],
                       ),
                     ],
                   ),

@@ -14,6 +14,7 @@ class ChatPage extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as UserModel;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blueGrey.shade300,
         title: Row(
           children: [
             CircleAvatar(
@@ -153,8 +154,8 @@ class ChatPage extends StatelessWidget {
                                                   : const AssetImage(
                                                       'assets/images/unseen.png'),
                                               fit: BoxFit.fill,
-                                              height: 30,
-                                              width: 30,
+                                              height: 20,
+                                              width: 20,
                                             )
                                           ],
                                         ),
@@ -218,7 +219,7 @@ class ChatPage extends StatelessWidget {
             TextField(
               decoration: const InputDecoration(
                 hintText: "Enter message",
-                hintStyle: TextStyle(color: Colors.white),
+                hintStyle: TextStyle(color: Colors.black),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10))),
               ),

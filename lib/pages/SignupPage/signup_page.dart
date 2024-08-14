@@ -18,6 +18,7 @@ class SignupPage extends StatelessWidget {
     double defaultIconSize = 17;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding:
             const EdgeInsets.only(left: 20, right: 20, top: 35, bottom: 30),
@@ -25,7 +26,16 @@ class SignupPage extends StatelessWidget {
         height: double.infinity,
         color: Colors.white70,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(
+              height: 20,
+            ),
+            Text("Create \nAccount :)",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                )),
             Flexible(
               flex: 5,
               child: Column(
@@ -151,44 +161,99 @@ class SignupPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 40,
                   ),
-                  IconButton(
-                    onPressed: () async {
-                      UserCredential userCredential =
-                          await AuthServices.authServices.signInWithGoogle();
-                      User? user = userCredential.user;
-                      if (user != null) {
-                        await fireStore.addUser(user: user);
-                        await fireStore.getData();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("SIGN UP !!"),
-                            backgroundColor: Colors.green,
-                            behavior: SnackBarBehavior.floating,
-                          ),
-                        );
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const Text('Login with', style: TextStyle(fontSize: 17)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        onPressed: () async {
+                          UserCredential userCredential = await AuthServices
+                              .authServices
+                              .signInWithGoogle();
+                          User? user = userCredential.user;
+                          if (user != null) {
+                            await fireStore.addUser(user: user);
+                            await fireStore.getData();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("SIGN UP !!"),
+                                backgroundColor: Colors.green,
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
 
-                        Navigator.pushNamed(context, Routes.routes.home);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("FAILED !!"),
-                            backgroundColor: Colors.red,
-                            behavior: SnackBarBehavior.floating,
+                            Navigator.pushNamed(context, Routes.routes.home);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("FAILED !!"),
+                                backgroundColor: Colors.red,
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                          }
+                        },
+                        icon: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.asset(
+                            height: 30,
+                            width: 30,
+                            "assets/images/google.png",
                           ),
-                        );
-                      }
-                    },
-                    icon: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        height: 26,
-                        width: 26,
-                        "assets/images/google.png",
+                        ),
                       ),
-                    ),
-                  )
+                      SizedBox(
+                        height: 30,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            User? user = await AuthServices.authServices
+                                .anonymousLogin();
+
+                            if (user != null) {
+                              await fireStore.addUser(user: user);
+                              await fireStore.getData();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("SIGN UP !!"),
+                                  backgroundColor: Colors.green,
+                                  behavior: SnackBarBehavior.floating,
+                                ),
+                              );
+
+                              Navigator.pushNamed(context, Routes.routes.home);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("FAILED !!"),
+                                  backgroundColor: Colors.red,
+                                  behavior: SnackBarBehavior.floating,
+                                ),
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                              side: const BorderSide(
+                                color: Color(0xFFBC1F26),
+                              ),
+                            ),
+                          ),
+                          child: const Text("Guest",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: 'Poppins-Medium.ttf',
+                              )),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
