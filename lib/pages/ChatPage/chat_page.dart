@@ -14,7 +14,8 @@ class ChatPage extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as UserModel;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey.shade300,
+        backgroundColor: const Color(0xFFBC1F26),
+        foregroundColor: Colors.white,
         title: Row(
           children: [
             CircleAvatar(
@@ -27,7 +28,7 @@ class ChatPage extends StatelessWidget {
           ],
         ),
       ),
-      backgroundColor: Colors.blueGrey.shade100,
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

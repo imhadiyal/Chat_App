@@ -126,7 +126,6 @@ class FireStoreService {
         .doc(chat.time.millisecondsSinceEpoch.toString())
         .set(data);
   }
-
   Future<void> seenMsg(
       {required UserModel user, required ChatModel chat}) async {
     await fireStore

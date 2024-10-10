@@ -33,7 +33,7 @@ class FriendsPage extends StatelessWidget {
                           return ListTile(
                             onTap: () {
                               Navigator.of(context).pushNamed(
-                                'chat_page',
+                                'add',
                                 arguments: userModel,
                               );
                             },

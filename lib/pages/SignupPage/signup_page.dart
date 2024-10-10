@@ -28,10 +28,10 @@ class SignupPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text("Create \nAccount :)",
+            const Text("Create \nAccount :)",
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,

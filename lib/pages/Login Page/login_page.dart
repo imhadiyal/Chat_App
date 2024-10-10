@@ -31,15 +31,15 @@ class LoginPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text("Welcome Back!",
+            const Text("Welcome Back!",
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                 )),
-            Text(
+            const Text(
               "Enter Your Username & Password",
             ),
             Flexible(
@@ -50,12 +50,13 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  TextField(
+                  TextFormField(
                     controller: emailController,
-                    showCursor: true,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
                         borderSide: BorderSide(
                           width: 0,
                           style: BorderStyle.none,
@@ -65,7 +66,6 @@ class LoginPage extends StatelessWidget {
                       prefixIcon: Icon(
                         Icons.email,
                         color: const Color(0xFF666666),
-                        size: defaultIconSize,
                       ),
                       fillColor: const Color(0xFFF2F3F5),
                       hintStyle: TextStyle(
@@ -79,6 +79,7 @@ class LoginPage extends StatelessWidget {
                     height: 15,
                   ),
                   TextField(
+                    textInputAction: TextInputAction.done,
                     controller: pswController,
                     showCursor: true,
                     decoration: InputDecoration(
@@ -117,7 +118,7 @@ class LoginPage extends StatelessWidget {
                     child: Text(
                       "Forgot your password?",
                       style: TextStyle(
-                        color: Color(0xFF666666),
+                        color: const Color(0xFF666666),
                         fontFamily: defaultFontFamily,
                         fontSize: defaultFontSize,
                         fontStyle: FontStyle.normal,

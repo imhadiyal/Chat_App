@@ -27,25 +27,32 @@ class HomePage extends StatelessWidget {
         onTap: (value) => screen.updateScreenIndex(value),
         items: [
           BottomNavigationBarItem(
-              label: 'Chats',
-              icon: Icon((currentScreen == 0)
+            label: 'Chats',
+            icon: Icon(
+              (currentScreen == 0)
                   ? Icons.chat_sharp
-                  : Icons.chat_bubble_outline),
-              backgroundColor: Colors
-                  .indigo // provide color to any one icon as it will overwrite the whole bottombar's color ( if provided any )
-              ),
+                  : Icons.chat_bubble_outline,
+              color: const Color(0xFFBC1F26),
+            ),
+          ),
           BottomNavigationBarItem(
-              label: 'People',
-              icon: Icon((currentScreen == 1)
+            label: 'People',
+            icon: Icon(
+              (currentScreen == 1)
                   ? Icons.people_alt
-                  : Icons.people_alt_outlined),
-              backgroundColor: Colors.indigo),
+                  : Icons.people_alt_outlined,
+              color: const Color(0xFFBC1F26),
+            ),
+          ),
         ],
       ),
       drawer: Drawer(
         child: Column(
           children: [
             UserAccountsDrawerHeader(
+              decoration: const BoxDecoration(
+                color: Color(0xFFBC1F26),
+              ),
               currentAccountPicture: CircleAvatar(
                 foregroundImage: NetworkImage(
                   FireStoreService.instance.currentUser?.photoURL ??
@@ -70,11 +77,12 @@ class HomePage extends StatelessWidget {
               title: const Text('Settings'),
             ),
             const Divider(),
-            ListTile(),
           ],
         ),
       ),
       appBar: AppBar(
+        backgroundColor: const Color(0xFFBC1F26),
+        foregroundColor: Colors.white,
         title: const Text("Home Page"),
         actions: [
           IconButton(
